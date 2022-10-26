@@ -45,3 +45,7 @@
 .deleteButton {
     -fx-background-color: #C60108;
 }
+
+.errorLabel {
+    -fx-text-fill: #FF0000;
+}

@@ -12,6 +12,21 @@
     -fx-pref-width: 290px !important;
 }
 
+.check-box {
+    -fx-pref-height: 34px;
+}
+
+.check-box > * {
+    -fx-translate-x: 5px;
+    -fx-translate-y: -0.5px;
+}
+
+.check-box .box {
+    -fx-border-radius: 0;
+    -fx-border-color: #999999;
+    -fx-background-color: #FFFFFF;
+}
+
 .date-picker .arrow-button,
 .date-picker .text-field {
     -fx-background-color: #FFFFFF;
@@ -32,9 +47,16 @@
     -fx-border-color: #E6E6E6;
 }
 
+.date-picker-popup .day-cell:focused,
 .date-picker-popup .day-cell:hover {
     -fx-background-color: #0078D7 !important;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #FFFFFF !important;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .today {
+    -fx-text-fill: #0078D7;
+    -fx-font-weight: bold;
 }
 
 .date-picker-popup .previous-month,
@@ -62,10 +84,6 @@
 .date-picker-popup .button:hover .right-arrow,
 .date-picker-popup .button:hover .left-arrow {
     -fx-background-color: #FFFFFF;
-}
-
-.date-picker-popup {
-    -fx-background-color: #FF0000 !important;
 }
 
 .date-picker-popup .button:focused {

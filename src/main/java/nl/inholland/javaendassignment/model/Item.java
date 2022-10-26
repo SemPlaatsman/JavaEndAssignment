@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import java.io.Serializable;
 
 public class Item implements Serializable {
-    private Integer itemCode;
-    private Boolean available;
+    private int itemCode;
+    private boolean available;
     private String title;
     private String author;
 
@@ -20,19 +20,19 @@ public class Item implements Serializable {
         this.author = author;
     }
 
-    public Integer getItemCode() {
+    public int getItemCode() {
         return itemCode;
     }
 
-    public void setItemCode(Integer itemCode) {
+    public void setItemCode(int itemCode) {
         this.itemCode = itemCode;
     }
 
-    public Boolean getAvailable() {
+    public boolean getAvailable() {
         return available;
     }
 
-    public void setAvailable(Boolean available) {
+    public void setAvailable(boolean available) {
         this.available = available;
     }
 

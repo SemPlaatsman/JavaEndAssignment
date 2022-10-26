@@ -5,43 +5,68 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import nl.inholland.javaendassignment.data.Database;
+import nl.inholland.javaendassignment.model.Member;
 import nl.inholland.javaendassignment.model.User;
 
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 public class EditMemberController implements Initializable {
     private MainController mainController;
+    private Database database;
+    private Member member;
 
     @FXML private Label addEditLabel;
+
+    @FXML private TextField firstNameTextField;
+    @FXML private TextField lastNameTextField;
+    @FXML private DatePicker birthDatePicker;
+
     @FXML private Button confirmButton;
     @FXML private Button cancelButton;
 
     @FXML
     protected void onConfirmButtonClick(ActionEvent actionEvent) {
-        System.out.println("test");
+        try {
+            LocalDate datePickerValue = LocalDate.parse(((TextField)birthDatePicker.getChildrenUnmodifiable().get(1)).getText(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            birthDatePicker.setValue(datePickerValue);
+
+            member.setFirstName(firstNameTextField.getText());
+            member.setLastName(lastNameTextField.getText());
+            member.setBirthDate(birthDatePicker.getValue());
+            database.editMember(member);
+            mainController.loadScene("/fxml/members-view.fxml", new MembersController(mainController, database));
+        } catch (DateTimeParseException dtpex) {
+            Alert invalidBirthDateAlert = new Alert(Alert.AlertType.ERROR, "Please provide a valid date in the following format: (dd-MM-yyyy) e.g. 26-10-2022.");
+            invalidBirthDateAlert.setHeaderText("Invalid birth date entered!");
+            invalidBirthDateAlert.showAndWait();
+        }
     }
 
     @FXML
     protected void onCancelButtonClick(ActionEvent actionEvent) {
-        mainController.loadScene("/fxml/members-view.fxml", new MembersController(mainController));
+        mainController.loadScene("/fxml/members-view.fxml", new MembersController(mainController, database));
     }
 
-    protected void test(Method method) {
-
-    }
-
-    public EditMemberController(MainController mainController) {
+    public EditMemberController(MainController mainController, Database database, Member member) {
         this.mainController = mainController;
+        this.database = database;
+        this.member = member;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addEditLabel.setText("Edit" + addEditLabel.getText());
+
+        firstNameTextField.setText(member.getFirstName());
+        lastNameTextField.setText(member.getLastName());
+        birthDatePicker.setValue(member.getBirthDate());
     }
 }

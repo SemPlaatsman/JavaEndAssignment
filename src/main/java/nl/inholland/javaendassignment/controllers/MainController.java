@@ -29,25 +29,21 @@ public class MainController implements Initializable {
 
     @FXML
     protected void onLendingReceivingButtonClick(ActionEvent actionEvent) {
-        loadScene("/fxml/lend-receive-view.fxml", new LendReceiveController(new User("Sem", "-")));
+        loadScene("/fxml/lend-receive-view.fxml", new LendReceiveController(database, new User("Sem", "-")));
         disableNavigationButton(0);
     }
 
     @FXML
     protected void onCollectionButtonClick(ActionEvent actionEvent) {
-        loadScene("/fxml/collection-view.fxml", new CollectionController(database));
+        loadScene("/fxml/collection-view.fxml", new CollectionController(this, database));
         disableNavigationButton(1);
     }
 
     @FXML
     protected void onMembersButtonClick(ActionEvent actionEvent) {
-        loadScene("/fxml/members-view.fxml", new MembersController(this));
+        loadScene("/fxml/members-view.fxml", new MembersController(this, database));
         disableNavigationButton(2);
         buttonHBox.getChildren().get(0).requestFocus();
-    }
-
-    protected void onClose(WindowEvent windowEvent){
-        database.serialize();
     }
 
     public void loadScene(String name, Object controller) {
@@ -64,15 +60,14 @@ public class MainController implements Initializable {
         }
     }
 
-    public MainController() {
-        //database = new Database();
+    public MainController(Database database) {
+        this.database = database;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadScene("/fxml/lend-receive-view.fxml", new LendReceiveController(new User("Sem", "-")));
+        loadScene("/fxml/lend-receive-view.fxml", new LendReceiveController(database, new User("Sem", "-")));
         disableNavigationButton(0);
-        database = new Database();
     }
 
     private void disableNavigationButton(int index) {
