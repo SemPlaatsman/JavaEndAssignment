@@ -1,0 +1,44 @@
+.root {
+    -fx-background-color: transparent;
+}
+
+#navigationHBox {
+    -fx-background-color: #000000;
+}
+
+#libraryImage {
+    -fx-translate-x: 10px;
+    -fx-translate-y: 10px;
+}
+
+#librarySystemLabel {
+    -fx-font: 32px "System";
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 15px 0px 0px 10px;
+}
+
+#buttonHBox {
+    -fx-translate-x: 50px;
+    -fx-spacing: 3px;
+}
+
+.navigationButton {
+    -fx-background-radius: 0;
+    -fx-background-color: #5D5E5E;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 135px;
+    -fx-font-size: 14px;
+    -fx-alignment: baseline-left;
+}
+
+.navigationButton:hover {
+    -fx-background-color: #A1A1A1;
+    -fx-cursor: hand;
+}
+
+.navigationButton:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: #E5E5E5;
+    -fx-text-fill: #000000;
+}

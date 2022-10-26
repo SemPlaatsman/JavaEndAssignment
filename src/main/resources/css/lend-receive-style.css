@@ -1,0 +1,9 @@
+#lendReceiveGridPane {
+    -fx-hgap: 20px !important;
+    -fx-vgap: 10px !important;
+}
+
+.functionalityHBox {
+    -fx-spacing: 20px !important;
+    -fx-padding: 20px 20px 20px 20px !important;
+}

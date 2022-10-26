@@ -1,0 +1,7 @@
+.root {
+    -fx-padding: 40px 120px 40px 40px !important;
+}
+
+#loginLabel {
+    -fx-text-fill: #000000 !important;
+}

@@ -1,0 +1,47 @@
+.root {
+    -fx-font: 14px "System";
+    -fx-padding: 10px 20px 20px 20px;
+}
+
+.background {
+    -fx-background-color: #E5E5E5;
+}
+
+.foreground {
+    -fx-background-color: #FFFFFF;
+}
+
+.titleLabel {
+    -fx-text-fill: #808080;
+    -fx-font-size: 32px;
+}
+
+.inputField {
+    -fx-background-color: #FFFFFF;
+    -fx-prompt-text-fill: #999999;
+    -fx-border-color: #999999;
+    -fx-border-width: 2;
+}
+
+.button {
+    -fx-background-radius: 0;
+    -fx-text-fill: #FFFFFF;
+    -fx-text-alignment: center;
+    -fx-pref-width: 120px;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+}
+
+.mainButton {
+    -fx-background-color: #0078D7;
+}
+
+.neutralButton {
+    -fx-background-color: #797979;
+}
+
+.deleteButton {
+    -fx-background-color: #C60108;
+}

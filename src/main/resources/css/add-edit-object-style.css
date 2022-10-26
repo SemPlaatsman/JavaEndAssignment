@@ -1,0 +1,93 @@
+.root {
+    -fx-vgap: 10px !important;
+}
+
+.parametersContainer {
+    -fx-hgap: 20px !important;
+    -fx-vgap: 20px !important;
+    -fx-padding: 20px 20px 20px 20px !important;
+}
+
+.inputField {
+    -fx-pref-width: 290px !important;
+}
+
+.date-picker .arrow-button,
+.date-picker .text-field {
+    -fx-background-color: #FFFFFF;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #999999 !important;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-pref-width: 286px;
+    -fx-font: normal 16px "System";
+}
+
+.date-picker-popup .date-cell {
+    -fx-background-color: #E6E6E6;
+    -fx-border-color: #E6E6E6;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #0078D7 !important;
+    -fx-text-fill: #FFFFFF;
+}
+
+.date-picker-popup .previous-month,
+.date-picker-popup .next-month{
+    -fx-background-color: #F2F2F2 !important;
+}
+
+.date-picker-popup .day-name-cell {
+    -fx-background-color: #FFFFFF !important;
+    -fx-border-color: #FFFFFF;
+}
+
+.date-picker-popup .button {
+    -fx-pref-height: 30px;
+    -fx-pref-width: 30px;
+}
+
+.date-picker-popup .button:focused:hover,
+.date-picker-popup .button:hover {
+    -fx-background-color: #0078D7;
+}
+
+.date-picker-popup .button:focused:hover .right-arrow,
+.date-picker-popup .button:focused:hover .left-arrow,
+.date-picker-popup .button:hover .right-arrow,
+.date-picker-popup .button:hover .left-arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+.date-picker-popup {
+    -fx-background-color: #FF0000 !important;
+}
+
+.date-picker-popup .button:focused {
+    -fx-background-color: #FFFFFF;
+}
+
+.date-picker-popup .button:focused .right-arrow,
+.date-picker-popup .button:focused .left-arrow {
+    -fx-background-color: #000000;
+}
+
+.date-picker-popup .button .right-arrow,
+.date-picker-popup .button .left-arrow {
+    -fx-background-color: #000000;
+}
+
+.date-picker-popup .cell {
+    -fx-pref-width:20px ;
+    -fx-pref-height:25px ;
+}
+
+.date-picker-popup  {
+    -fx-translate-y: 5px;
+    -fx-border-color: #E6E6E6;
+}
