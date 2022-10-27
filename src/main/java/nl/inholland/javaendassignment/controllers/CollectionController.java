@@ -28,7 +28,8 @@ public class CollectionController implements Initializable {
     private ObservableList<Item> items;
 
     @FXML private TableView<Item> itemsTableView;
-    @FXML private TableColumn<Item, Boolean> availableColumn = new TableColumn<>("Available");
+    @FXML private TableColumn<Item, Boolean> availableColumn;
+    @FXML private Label errorLabel;
 
     @FXML
     public void onAddItemButtonClick(ActionEvent actionEvent) {
@@ -39,7 +40,7 @@ public class CollectionController implements Initializable {
     public void onEditItemButtonClick(ActionEvent actionEvent) {
         Item item = itemsTableView.getSelectionModel().getSelectedItem();
         if (item == null) {
-            unselectedItemAlert("edit");
+            errorLabel.setText("Please select an item to edit!");
             return;
         }
         mainController.loadScene("/fxml/add-edit-item-view.fxml", new EditItemController(mainController, database, item));
@@ -49,24 +50,13 @@ public class CollectionController implements Initializable {
     public void onDeleteItemButtonClick(ActionEvent actionEvent) {
         Item item = itemsTableView.getSelectionModel().getSelectedItem();
         if (item == null) {
-            unselectedItemAlert("delete");
+            errorLabel.setText("Please select an item to delete!");
             return;
         }
-
-        Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION, "The following item will be deleted: " + item.getTitle() + " by " + item.getAuthor() + ". Deleting an item cannot be reverted!", ButtonType.YES, ButtonType.CANCEL);
-        deleteAlert.setHeaderText("Are you sure you wish to delete this item?");
-        if (!(deleteAlert.showAndWait().get() == ButtonType.YES))
-            return;
 
         database.deleteItem(item);
         items = FXCollections.observableArrayList(database.getItems());
         itemsTableView.setItems(items);
-    }
-
-    private void unselectedItemAlert(String purpose) {
-        Alert unselectedItemAlert = new Alert(Alert.AlertType.ERROR, "No item was selected! Please select an item to " + purpose + ".");
-        unselectedItemAlert.setHeaderText("No item selected!");
-        unselectedItemAlert.showAndWait();
     }
 
     public CollectionController(MainController mainController, Database database) {

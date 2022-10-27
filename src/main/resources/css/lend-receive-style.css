@@ -7,3 +7,12 @@
     -fx-spacing: 20px !important;
     -fx-padding: 20px 20px 20px 20px !important;
 }
+
+.errorLabel {
+    -fx-translate-x: 10px;
+}
+
+.successLabel {
+    -fx-translate-x: 10px;
+    -fx-text-fill: #009900;
+}

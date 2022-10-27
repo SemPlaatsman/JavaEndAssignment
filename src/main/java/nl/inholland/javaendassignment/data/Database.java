@@ -10,6 +10,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Database implements Serializable {
     private static final File DATABASE_FILE = new File("src/main/java/nl/inholland/javaendassignment/data/database.ser");
@@ -22,6 +23,22 @@ public class Database implements Serializable {
     public List<User> getUsers() { return users; }
     public List<Item> getItems() { return items; }
     public List<Member> getMembers() { return members; }
+
+    public Item getItemByCode(int itemCode) {
+        for (Item item : items) {
+            if (item.getItemCode() == itemCode)
+                return item;
+        }
+        return null;
+    }
+
+    public Member getMemberById(int memberId) {
+        for (Member member : members) {
+            if (member.getId() == memberId)
+                return member;
+        }
+        return null;
+    }
 
     public void addItem(Item item) {
         //https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
@@ -65,9 +82,15 @@ public class Database implements Serializable {
         users.add(new User("sempl", "semjava"));
         users.add(new User("markie", "ahrnuld123"));
 
-        items.add(new Item(242, false, "Java for Dummies, 12th edition", "Vries. P, de"));
+        Item item = new Item(242, false, "Java for Dummies, 12th edition", "Vries. P, de");
+        item.setLendingDate(LocalDate.of(2022, 10, 26));
+        item.setLendingMemberId(35);
+        items.add(item);
         items.add(new Item(243, true, "Java for Dummies, 13th edition", "Vries. E, de"));
-        items.add(new Item(244, false, "How to find the missing semicolon (this time for real)", "Plaatsman. S,"));
+        item = new Item(244, false, "How to find the missing semicolon (this time for real)", "Plaatsman. S,");
+        item.setLendingDate(LocalDate.of(2022, 9, 24));
+        item.setLendingMemberId(33);
+        items.add(item);
         items.add(new Item(245, true, "Coding memes: humor based on my pain", "Plaatsman. S,"));
         items.add(new Item(246, true, "Frans Bauer: een memoire", "Bauer. F"));
 

@@ -31,6 +31,7 @@ public class EditMemberController implements Initializable {
 
     @FXML private Button confirmButton;
     @FXML private Button cancelButton;
+    @FXML private Label errorLabel;
 
     @FXML
     protected void onConfirmButtonClick(ActionEvent actionEvent) {
@@ -44,9 +45,7 @@ public class EditMemberController implements Initializable {
             database.editMember(member);
             mainController.loadScene("/fxml/members-view.fxml", new MembersController(mainController, database));
         } catch (DateTimeParseException dtpex) {
-            Alert invalidBirthDateAlert = new Alert(Alert.AlertType.ERROR, "Please provide a valid date in the following format: (dd-MM-yyyy) e.g. 26-10-2022.");
-            invalidBirthDateAlert.setHeaderText("Invalid birth date entered!");
-            invalidBirthDateAlert.showAndWait();
+            errorLabel.setText("Please provide a valid date in the following format: 'dd-MM-yyyy'!");
         }
     }
 

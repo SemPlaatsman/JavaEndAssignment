@@ -23,13 +23,14 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     private Database database;
+    private User user;
 
     @FXML private VBox containerVBox;
     @FXML private HBox buttonHBox;
 
     @FXML
     protected void onLendingReceivingButtonClick(ActionEvent actionEvent) {
-        loadScene("/fxml/lend-receive-view.fxml", new LendReceiveController(database, new User("Sem", "-")));
+        loadScene("/fxml/lend-receive-view.fxml", new LendReceiveController(database, user));
         disableNavigationButton(0);
     }
 
@@ -60,13 +61,14 @@ public class MainController implements Initializable {
         }
     }
 
-    public MainController(Database database) {
+    public MainController(Database database, User user) {
         this.database = database;
+        this.user = user;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadScene("/fxml/lend-receive-view.fxml", new LendReceiveController(database, new User("Sem", "-")));
+        loadScene("/fxml/lend-receive-view.fxml", new LendReceiveController(database, user));
         disableNavigationButton(0);
     }
 

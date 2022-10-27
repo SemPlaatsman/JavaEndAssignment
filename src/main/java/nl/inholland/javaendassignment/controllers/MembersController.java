@@ -23,7 +23,7 @@ public class MembersController implements Initializable {
 
     @FXML private TableView<Member> membersTableView;
     @FXML private TableColumn<Member, LocalDate> birthDateColumn;
-
+    @FXML private Label errorLabel;
     @FXML
     public void onAddMemberButtonClick(ActionEvent actionEvent) {
         mainController.loadScene("/fxml/add-edit-member-view.fxml", new AddMemberController(mainController, database));
@@ -33,7 +33,7 @@ public class MembersController implements Initializable {
     public void onEditMemberButtonClick(ActionEvent actionEvent) {
         Member member = membersTableView.getSelectionModel().getSelectedItem();
         if (member == null) {
-            unselectedMemberAlert("edit");
+            errorLabel.setText("Please select a member to edit!");
             return;
         }
         mainController.loadScene("/fxml/add-edit-member-view.fxml", new EditMemberController(mainController, database, member));
@@ -43,19 +43,13 @@ public class MembersController implements Initializable {
     public void onDeleteMemberButtonClick(ActionEvent actionEvent) {
         Member member = membersTableView.getSelectionModel().getSelectedItem();
         if (member == null) {
-            unselectedMemberAlert("delete");
+            errorLabel.setText("Please select a member to delete!");
             return;
         }
 
         database.deleteMember(member);
         members = FXCollections.observableArrayList(database.getMembers());
         membersTableView.setItems(members);
-    }
-
-    private void unselectedMemberAlert(String purpose) {
-        Alert unselectedItemAlert = new Alert(Alert.AlertType.ERROR, "No member was selected! Please select a member to " + purpose + ".");
-        unselectedItemAlert.setHeaderText("No member selected!");
-        unselectedItemAlert.showAndWait();
     }
 
     public MembersController(MainController mainController, Database database) {

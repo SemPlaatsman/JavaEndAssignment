@@ -39,7 +39,7 @@ public class LoginController {
             return;
         }
 
-        loadLibraryScene();
+        loadLibraryScene(enteredUser);
     }
 
     public boolean validateFields() {
@@ -57,10 +57,10 @@ public class LoginController {
         return false;
     }
 
-    public void loadLibraryScene() {
+    public void loadLibraryScene(User user) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/navigation-view.fxml"));
-            fxmlLoader.setController(new MainController(database));
+            fxmlLoader.setController(new MainController(database, user));
             Stage stage = (Stage) loginGridPane.getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);

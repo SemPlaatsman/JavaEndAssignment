@@ -6,18 +6,23 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Item implements Serializable {
     private int itemCode;
     private boolean available;
     private String title;
     private String author;
+    private LocalDate lendingDate;
+    private Integer lendingMemberId;
 
     public Item(int itemCode, boolean available, String title, String author) {
         this.itemCode = itemCode;
         this.available = available;
         this.title = title;
         this.author = author;
+        this.lendingDate = null;
+        this.lendingMemberId = null;
     }
 
     public int getItemCode() {
@@ -50,5 +55,21 @@ public class Item implements Serializable {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public LocalDate getLendingDate() {
+        return lendingDate;
+    }
+
+    public void setLendingDate(LocalDate lendingDate) {
+        this.lendingDate = lendingDate;
+    }
+
+    public Integer getLendingMemberId() {
+        return lendingMemberId;
+    }
+
+    public void setLendingMemberId(Integer lendingMemberId) {
+        this.lendingMemberId = lendingMemberId;
     }
 }
