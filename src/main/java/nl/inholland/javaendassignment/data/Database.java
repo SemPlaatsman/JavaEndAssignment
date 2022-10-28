@@ -57,7 +57,7 @@ public class Database implements Serializable {
         // code in try block will throw a NoSuchElementException if there is are no items in the list so there is no item to be the item with max value
         try {
             // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
-            item.setItemCode(items.stream().max(Comparator.comparing(Item::getItemCode)).get().getItemCode());
+            item.setItemCode(items.stream().max(Comparator.comparing(Item::getItemCode)).get().getItemCode() + 1);
         } catch (NoSuchElementException nsee) { item.setItemCode(1); }
         items.add(item);
     }
