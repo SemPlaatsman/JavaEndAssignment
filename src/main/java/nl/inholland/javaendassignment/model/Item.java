@@ -1,10 +1,5 @@
 package nl.inholland.javaendassignment.model;
 
-import javafx.beans.property.*;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableValue;
-import javafx.fxml.Initializable;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -63,10 +58,6 @@ public class Item implements Serializable {
 
     public void setLendingDate(LocalDate lendingDate) {
         this.lendingDate = lendingDate;
-    }
-
-    public Integer getLendingMemberId() {
-        return lendingMemberId;
     }
 
     public void setLendingMemberId(Integer lendingMemberId) {

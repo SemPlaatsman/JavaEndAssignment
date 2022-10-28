@@ -1,8 +1,8 @@
 package nl.inholland.javaendassignment.data;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import nl.inholland.javaendassignment.model.*;
+import nl.inholland.javaendassignment.model.Item;
+import nl.inholland.javaendassignment.model.Member;
+import nl.inholland.javaendassignment.model.User;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -10,19 +10,31 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Database implements Serializable {
-    private static final File DATABASE_FILE = new File("src/main/java/nl/inholland/javaendassignment/data/database.ser");
+    // serial version uid to serialize the database
     static final long serialVersionUID = 6529685098267757690L;
-
+    // file location
+    private static final File DATABASE_FILE = new File("src/main/java/nl/inholland/javaendassignment/data/database.ser");
     private List<User> users = new ArrayList<>();
     private List<Item> items = new ArrayList<>();
     private List<Member> members = new ArrayList<>();
 
-    public List<User> getUsers() { return users; }
-    public List<Item> getItems() { return items; }
-    public List<Member> getMembers() { return members; }
+    public Database() {
+        deserialize();
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
 
     public Item getItemByCode(int itemCode) {
         for (Item item : items) {
@@ -41,12 +53,13 @@ public class Database implements Serializable {
     }
 
     public void addItem(Item item) {
-        //https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
+        // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
         item.setItemCode(items.stream().max(Comparator.comparing(i -> i.getItemCode())).get().getItemCode() + 1);
         items.add(item);
     }
+
     public void addMember(Member member) {
-        //https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
+        // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
         member.setId(members.stream().max(Comparator.comparing(m -> m.getId())).get().getId() + 1);
         members.add(member);
     }
@@ -58,6 +71,7 @@ public class Database implements Serializable {
             }
         }
     }
+
     public void editMember(Member member) {
         for (int i = 0; i < members.size(); i++) {
             if (members.get(i).getId() == member.getId()) {
@@ -74,13 +88,11 @@ public class Database implements Serializable {
         members.remove(member);
     }
 
-    public Database() {
-        deserialize();
-    }
-
+    // test data
     public void loadTestData() {
-        users.add(new User("sempl", "semjava"));
-        users.add(new User("markie", "ahrnuld123"));
+        users.add(new User("sempl", "semjava", "Sem Plaatsman"));
+        users.add(new User("markie", "ahrnuld123", "Mark de Haan"));
+        users.add(new User("john", "doe87", "John Doe"));
 
         Item item = new Item(242, false, "Java for Dummies, 12th edition", "Vries. P, de");
         item.setLendingDate(LocalDate.of(2022, 10, 26));
@@ -100,6 +112,7 @@ public class Database implements Serializable {
         members.add(new Member(35, "Emanuel", "Jensen", LocalDate.of(2001, Month.APRIL, 1)));
     }
 
+    //serialize file based on code from the following article: https://www.geeksforgeeks.org/serialization-in-java/
     public void serialize() {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(DATABASE_FILE);
@@ -109,30 +122,30 @@ public class Database implements Serializable {
 
             fileOutputStream.close();
             objectOutputStream.close();
-        }
-        catch (IOException ioex) {
+        } catch (IOException ioex) {
             throw new RuntimeException(ioex);
         }
     }
 
+    //deserialize file based on code from the following article: https://www.geeksforgeeks.org/serialization-in-java/
     public void deserialize() {
         try {
             if (!DATABASE_FILE.exists() || !DATABASE_FILE.canRead()) {
                 loadTestData();
                 return;
             }
+
             FileInputStream fileInputStream = new FileInputStream(DATABASE_FILE);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-            Database deserializedDatabase = (Database)objectInputStream.readObject();
+            Database deserializedDatabase = (Database) objectInputStream.readObject();
             users = deserializedDatabase.getUsers();
             items = deserializedDatabase.getItems();
             members = deserializedDatabase.getMembers();
 
             fileInputStream.close();
             objectInputStream.close();
-        }
-        catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }
     }

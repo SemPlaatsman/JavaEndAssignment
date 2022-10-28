@@ -1,40 +1,48 @@
 package nl.inholland.javaendassignment.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
-import javafx.event.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import nl.inholland.javaendassignment.MainApplication;
 import nl.inholland.javaendassignment.data.Database;
 import nl.inholland.javaendassignment.model.User;
 
 import java.io.IOException;
-import java.util.List;
 
 public class LoginController {
-    private Database database;
-    private List<User> users;
-
-    @FXML private GridPane loginGridPane;
-    @FXML private Button loginButton;
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Label errorLabel;
+    private final Database database;
 
     @FXML
-    public void onLoginButtonClick(ActionEvent actionEvent) {
+    private GridPane loginGridPane;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label errorLabel;
+
+    public LoginController(Database database) {
+        this.database = database;
+    }
+
+    @FXML // login
+    private void onLoginButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
         if (!validateFields()) {
-            errorLabel.setText("Please fill all textfields!");
+            errorLabel.setText("Please fill all fields!");
             return;
         }
-        User enteredUser = new User(usernameField.getText(), passwordField.getText());
-        if (!validateUser(enteredUser)) {
+        User enteredUser = validateUser(new User(usernameField.getText(), passwordField.getText(), "-"));
+        if (enteredUser == null) {
             errorLabel.setText("Invalid username/password combination!");
             return;
         }
@@ -42,22 +50,23 @@ public class LoginController {
         loadLibraryScene(enteredUser);
     }
 
-    public boolean validateFields() {
+    private boolean validateFields() {
         if (usernameField.getText().isEmpty())
             return false;
         return !passwordField.getText().isEmpty();
     }
 
-    public boolean validateUser(User enteredUser) {
-        for (User user : users) {
+    private User validateUser(User enteredUser) {
+        for (User user : database.getUsers()) {
+            // custom equals method is used where just password and username are compared
             if (enteredUser.equals(user)) {
-                return true;
+                return user;
             }
         }
-        return false;
+        return null;
     }
 
-    public void loadLibraryScene(User user) {
+    private void loadLibraryScene(User user) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/navigation-view.fxml"));
             fxmlLoader.setController(new MainController(database, user));
@@ -68,10 +77,5 @@ public class LoginController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public LoginController(Database database) {
-        this.database = database;
-        users = database.getUsers();
     }
 }
