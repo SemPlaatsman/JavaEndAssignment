@@ -1,60 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="346.0" prefWidth="770.0" styleClass="background"
-          xmlns="http://javafx.com/javafx/11.0.14-internal">
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="770.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="136.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="136.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="136.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="362.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="136.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="136.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="136.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="362.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES"/>
-        <RowConstraints minHeight="10.0" prefHeight="250" vgrow="SOMETIMES"/>
-        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="250" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label styleClass="titleLabel" text="Items" GridPane.columnSpan="4"/>
-        <TableView fx:id="itemsTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4"
-                   GridPane.rowIndex="1">
+        <Label styleClass="titleLabel" text="Items" GridPane.columnSpan="4" />
+      <TextField fx:id="filterTextField" promptText="Search by title or author" styleClass="inputField" GridPane.columnIndex="3" />
+        <TableView fx:id="itemsTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="1">
             <columns>
                 <TableColumn fx:id="itemCodeColumn" prefWidth="100.0" text="Item code">
                     <cellValueFactory>
-                        <PropertyValueFactory property="itemCode"/>
+                        <PropertyValueFactory property="itemCode" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="availableColumn" prefWidth="100.0" text="Available">
                     <cellValueFactory>
-                        <PropertyValueFactory property="available"/>
+                        <PropertyValueFactory property="available" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="titleColumn" prefWidth="350.0" text="Title">
                     <cellValueFactory>
-                        <PropertyValueFactory property="title"/>
+                        <PropertyValueFactory property="title" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="authorColumn" prefWidth="150.0" text="Author">
                     <cellValueFactory>
-                        <PropertyValueFactory property="author"/>
+                        <PropertyValueFactory property="author" />
                     </cellValueFactory>
                 </TableColumn>
             </columns>
         </TableView>
-        <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#onAddItemButtonClick" styleClass="mainButton"
-                text="Add item" GridPane.rowIndex="2"/>
-        <Button fx:id="editItemButton" mnemonicParsing="false" onAction="#onEditItemButtonClick"
-                styleClass="neutralButton" text="Edit item" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-        <Button fx:id="deleteItemButton" mnemonicParsing="false" onAction="#onDeleteItemButtonClick"
-                styleClass="deleteButton" text="Delete item" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-        <Label fx:id="errorLabel" styleClass="errorLabel" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+        <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#onAddItemButtonClick" styleClass="mainButton" text="Add item" GridPane.rowIndex="2" />
+        <Button fx:id="editItemButton" mnemonicParsing="false" onAction="#onEditItemButtonClick" styleClass="neutralButton" text="Edit item" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button fx:id="deleteItemButton" mnemonicParsing="false" onAction="#onDeleteItemButtonClick" styleClass="deleteButton" text="Delete item" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label fx:id="errorLabel" styleClass="errorLabel" GridPane.columnIndex="3" GridPane.rowIndex="2" />
     </children>
     <stylesheets>
-        <URL value="@../css/collection-members-style.css"/>
-        <URL value="@../css/base-style.css"/>
+        <URL value="@../css/collection-members-style.css" />
+        <URL value="@../css/base-style.css" />
     </stylesheets>
 </GridPane>

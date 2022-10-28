@@ -2,24 +2,29 @@ package nl.inholland.javaendassignment.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import nl.inholland.javaendassignment.data.Database;
 import nl.inholland.javaendassignment.model.Item;
 
+import java.io.FileInputStream;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class CollectionController implements Initializable {
     private final MainController mainController;
     private final Database database;
     private ObservableList<Item> items;
+    private FilteredList<Item> filteredItems;
+    private SortedList<Item> sortedItems;
 
+    @FXML
+    private TextField filterTextField;
     @FXML
     private TableView<Item> itemsTableView;
     @FXML
@@ -30,7 +35,9 @@ public class CollectionController implements Initializable {
     public CollectionController(MainController mainController, Database database) {
         this.mainController = mainController;
         this.database = database;
-        this.items = FXCollections.observableArrayList(database.getItems());
+        items = FXCollections.observableArrayList(database.getItems());
+        filteredItems = new FilteredList<>(items, predicate -> true);
+        sortedItems = new SortedList<>(filteredItems);
     }
 
     @FXML // open add item view
@@ -61,7 +68,9 @@ public class CollectionController implements Initializable {
 
         database.deleteItem(item);
         items = FXCollections.observableArrayList(database.getItems());
-        itemsTableView.setItems(items);
+        filteredItems = new FilteredList<>(items, predicate -> true);
+        sortedItems = new SortedList<>(filteredItems);
+        itemsTableView.setItems(sortedItems);
     }
 
     @Override
@@ -74,6 +83,19 @@ public class CollectionController implements Initializable {
                 setText(empty ? null : item ? "Yes" : "No");
             }
         });
-        itemsTableView.setItems(items);
+
+        filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredItems.setPredicate(item -> {
+                if (newValue == null || newValue.isEmpty())
+                    return true;
+                String filter = newValue.toLowerCase();
+                if (item.getTitle().toLowerCase().contains(filter) || item.getAuthor().toLowerCase().contains(filter))
+                    return true;
+                return false;
+            });
+        });
+
+        sortedItems.comparatorProperty().bind(itemsTableView.comparatorProperty());
+        itemsTableView.setItems(sortedItems);
     }
 }

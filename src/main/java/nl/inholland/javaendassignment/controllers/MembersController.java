@@ -2,13 +2,12 @@ package nl.inholland.javaendassignment.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import nl.inholland.javaendassignment.data.Database;
 import nl.inholland.javaendassignment.model.Member;
 
@@ -21,7 +20,11 @@ public class MembersController implements Initializable {
     private final MainController mainController;
     private final Database database;
     private ObservableList<Member> members;
+    private FilteredList<Member> filteredMembers;
+    private SortedList<Member> sortedMembers;
 
+    @FXML
+    private TextField filterTextField;
     @FXML
     private TableView<Member> membersTableView;
     @FXML
@@ -32,7 +35,9 @@ public class MembersController implements Initializable {
     public MembersController(MainController mainController, Database database) {
         this.mainController = mainController;
         this.database = database;
-        this.members = FXCollections.observableList(database.getMembers());
+        members = FXCollections.observableList(database.getMembers());
+        filteredMembers = new FilteredList<>(members, predicate -> true);
+        sortedMembers = new SortedList<>(filteredMembers);
     }
 
     @FXML // open add view
@@ -62,8 +67,10 @@ public class MembersController implements Initializable {
         }
 
         database.deleteMember(member);
-        members = FXCollections.observableArrayList(database.getMembers());
-        membersTableView.setItems(members);
+        members = FXCollections.observableList(database.getMembers());
+        filteredMembers = new FilteredList<>(members, predicate -> true);
+        sortedMembers = new SortedList<>(filteredMembers);
+        membersTableView.setItems(sortedMembers);
     }
 
     @Override
@@ -77,6 +84,19 @@ public class MembersController implements Initializable {
                 setText(empty ? "" : date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             }
         });
-        membersTableView.setItems(FXCollections.observableList(members));
+
+        filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredMembers.setPredicate(item -> {
+                if (newValue == null || newValue.isEmpty())
+                    return true;
+                String filter = newValue.toLowerCase();
+                if (item.getFirstName().toLowerCase().contains(filter) || item.getLastName().toLowerCase().contains(filter))
+                    return true;
+                return false;
+            });
+        });
+
+        sortedMembers.comparatorProperty().bind(membersTableView.comparatorProperty());
+        membersTableView.setItems(sortedMembers);
     }
 }
