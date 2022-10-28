@@ -67,7 +67,7 @@ public class CollectionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // based on code in the following stackoverflow post: https://stackoverflow.com/questions/36436169/boolean-to-string-in-tableview-javafx
-        availableColumn.setCellFactory(column -> new TableCell<Item, Boolean>() {
+        availableColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(Boolean item, boolean empty) {
                 super.updateItem(item, empty);

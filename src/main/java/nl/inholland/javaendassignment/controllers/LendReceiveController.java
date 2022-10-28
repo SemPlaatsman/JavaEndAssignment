@@ -85,7 +85,7 @@ public class LendReceiveController implements Initializable {
         receiveSuccessLabel.setText("Item was returned" + successLabelAppendage + ".");
     }
 
-    // vaLidate lending fields
+    // validate lending fields
     private boolean validateLendFields() {
         if (lendItemCodeTextField.getText().isEmpty() || lendMemberIdTextField.getText().isEmpty()) {
             lendErrorLabel.setText("Please fill all fields!");

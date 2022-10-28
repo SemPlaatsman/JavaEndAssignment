@@ -10,6 +10,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Database implements Serializable {
     // serial version uid to serialize the database
@@ -53,14 +54,20 @@ public class Database implements Serializable {
     }
 
     public void addItem(Item item) {
-        // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
-        item.setItemCode(items.stream().max(Comparator.comparing(i -> i.getItemCode())).get().getItemCode() + 1);
+        // code in try block will throw a NoSuchElementException if there is are no items in the list so there is no item to be the item with max value
+        try {
+            // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
+            item.setItemCode(items.stream().max(Comparator.comparing(Item::getItemCode)).get().getItemCode());
+        } catch (NoSuchElementException nsee) { item.setItemCode(1); }
         items.add(item);
     }
 
     public void addMember(Member member) {
-        // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
-        member.setId(members.stream().max(Comparator.comparing(m -> m.getId())).get().getId() + 1);
+        // code in try block will throw a NoSuchElementException if there is are no members in the list so there is no members to be the member with max value
+        try {
+            // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
+            member.setId(members.stream().max(Comparator.comparing(Member::getId)).get().getId() + 1);
+        } catch (NoSuchElementException nsee) { member.setId(1); }
         members.add(member);
     }
 
@@ -145,6 +152,8 @@ public class Database implements Serializable {
 
             fileInputStream.close();
             objectInputStream.close();
+        } catch (InvalidClassException ice) {
+            loadTestData();
         } catch (IOException | ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }

@@ -70,7 +70,7 @@ public class MembersController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // based on the code in the initialize method of CollectionController which is based on the following stackoverflow answer:
         // https://stackoverflow.com/questions/36436169/boolean-to-string-in-tableview-javafx
-        birthDateColumn.setCellFactory(column -> new TableCell<Member, LocalDate>() {
+        birthDateColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);

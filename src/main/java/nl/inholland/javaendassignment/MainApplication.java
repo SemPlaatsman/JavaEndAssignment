@@ -23,9 +23,7 @@ public class MainApplication extends Application {
         stage.setTitle("Library system application");
         stage.setScene(scene);
         // on close serialize the database
-        stage.setOnCloseRequest(onCloseEvent -> {
-            database.serialize();
-        });
+        stage.setOnCloseRequest(onCloseEvent -> database.serialize());
         stage.show();
     }
 }

@@ -45,12 +45,12 @@ public class MainController implements Initializable {
         disableNavigationButton(1);
     }
 
-    @FXML // open members collection view
+    @FXML // open member's collection view
     private void onMembersButtonClick(ActionEvent actionEvent) {
         actionEvent.consume();
         loadScene("/fxml/members-view.fxml", new MembersController(this, database));
         disableNavigationButton(2);
-        // set focus on first navigation button so the members collection doesn't get an ugly blue border around it
+        // set focus on first navigation button so the member's collection doesn't get an ugly blue border around it
         // and so that you can loop through the pages by just clicking enter repeatedly
         buttonHBox.getChildren().get(0).requestFocus();
     }
