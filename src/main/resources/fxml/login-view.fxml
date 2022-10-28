@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="loginGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="loginGridPane" maxHeight="-Infinity" maxWidth="-Infinity"
+          minHeight="-Infinity"
           minWidth="-Infinity" prefHeight="300.0" prefWidth="460.0"
           xmlns="http://javafx.com/javafx/11.0.14-internal">
     <columnConstraints>

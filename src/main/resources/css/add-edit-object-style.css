@@ -60,7 +60,7 @@
 }
 
 .date-picker-popup .previous-month,
-.date-picker-popup .next-month{
+.date-picker-popup .next-month {
     -fx-background-color: #F2F2F2 !important;
 }
 
@@ -101,11 +101,11 @@
 }
 
 .date-picker-popup .cell {
-    -fx-pref-width:20px ;
-    -fx-pref-height:25px ;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 25px;
 }
 
-.date-picker-popup  {
+.date-picker-popup {
     -fx-translate-y: 5px;
     -fx-border-color: #E6E6E6;
 }

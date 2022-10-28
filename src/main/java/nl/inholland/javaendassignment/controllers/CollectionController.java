@@ -11,9 +11,7 @@ import javafx.scene.control.*;
 import nl.inholland.javaendassignment.data.Database;
 import nl.inholland.javaendassignment.model.Item;
 
-import java.io.FileInputStream;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class CollectionController implements Initializable {
@@ -89,9 +87,7 @@ public class CollectionController implements Initializable {
                 if (newValue == null || newValue.isEmpty())
                     return true;
                 String filter = newValue.toLowerCase();
-                if (item.getTitle().toLowerCase().contains(filter) || item.getAuthor().toLowerCase().contains(filter))
-                    return true;
-                return false;
+                return item.getTitle().toLowerCase().contains(filter) || item.getAuthor().toLowerCase().contains(filter);
             });
         });
 

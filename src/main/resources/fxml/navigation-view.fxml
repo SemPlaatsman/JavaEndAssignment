@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="containerVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="containerVBox" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="415.0" prefWidth="770.0"
       xmlns="http://javafx.com/javafx/11.0.14-internal">
     <children>

@@ -58,7 +58,9 @@ public class Database implements Serializable {
         try {
             // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
             item.setItemCode(items.stream().max(Comparator.comparing(Item::getItemCode)).get().getItemCode() + 1);
-        } catch (NoSuchElementException nsee) { item.setItemCode(1); }
+        } catch (NoSuchElementException nsee) {
+            item.setItemCode(1);
+        }
         items.add(item);
     }
 
@@ -67,7 +69,9 @@ public class Database implements Serializable {
         try {
             // based on code from the following stackoverflow post: https://stackoverflow.com/questions/19338686/getting-max-value-from-an-arraylist-of-objects
             member.setId(members.stream().max(Comparator.comparing(Member::getId)).get().getId() + 1);
-        } catch (NoSuchElementException nsee) { member.setId(1); }
+        } catch (NoSuchElementException nsee) {
+            member.setId(1);
+        }
         members.add(member);
     }
 

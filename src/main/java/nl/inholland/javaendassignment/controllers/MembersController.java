@@ -90,9 +90,7 @@ public class MembersController implements Initializable {
                 if (newValue == null || newValue.isEmpty())
                     return true;
                 String filter = newValue.toLowerCase();
-                if (item.getFirstName().toLowerCase().contains(filter) || item.getLastName().toLowerCase().contains(filter))
-                    return true;
-                return false;
+                return item.getFirstName().toLowerCase().contains(filter) || item.getLastName().toLowerCase().contains(filter);
             });
         });
 
