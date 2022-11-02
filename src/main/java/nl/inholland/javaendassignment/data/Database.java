@@ -1,5 +1,7 @@
 package nl.inholland.javaendassignment.data;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import nl.inholland.javaendassignment.model.Item;
 import nl.inholland.javaendassignment.model.Member;
 import nl.inholland.javaendassignment.model.User;
